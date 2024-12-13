@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sephora</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet"  href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" >
+    <link rel="stylesheet"  href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.dataTables.css" >
+
+    <style>
+        * {
+             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            overflow-x: hidden; /* Oculta el desbordamiento horizontal */
+            overflow-y: auto;  /* Permite scroll vertical si es necesario */
+        }
+
+        /* Elemento más ancho que el viewport */
+        .wide-content {
+            width: 200%; /* Hace que el contenido sea más ancho que la ventana */
+            background: linear-gradient(to right, #4caf50, #2196f3);
+            height: 200px;
+            color: white;
+            text-align: center;
+            line-height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!--AQUI COMIENZA EL HEADER (TODOS IGUALES)-->
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="/"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="#">Más</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="/carrito">Shoping Cart</a></li>
+                                    <li><a href="/checkout">Check Out</a></li>
+                                    <li><a href="/">Shop</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="device-container">
+        <div class="devicert">
+            
+            <div class="row">
+                <div class="col">
+                    <table id="tablaHistorial" class="table  table-striped table">
+                        <thead>
+                            <tr>
+                            <th>Codigo de barras</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Tipo</th>
+                            <th>Subtipo</th>
+                            <th>Marca</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="container" id="centraresto">
+            <br>
+            <button id="backButton">Atrás</button>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script>
+     $(document).ready(function () {
+    $('#tablaHistorial').DataTable({
+        "ajax": {
+            "url": 'http://localhost:4000/api/productosreporte',
+            "dataSrc": ""
+        },
+        "lengthMenu": [5, 10, 100],
+        "columns": [
+            { "data": "codbar_prod" },
+            { "data": "nom_prod" },
+            { "data": "precio_prod" },
+            { "data": "cantidad" },
+            { "data": "nom_tipoprod" },
+            { "data": "nom_subtipop" },
+            { "data": "nom_marca", "className": "text-center" }
+        ],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontró el registro",
+            "info": "Mostrando de _START_ a _END_ de los _TOTAL_ registros",
+            "infoEmpty": "No se encontró el registro",
+            "infoFiltered": "(Filtrados desde _MAX_ registros)",
+            "search": "Buscar:",
+            "loadingRecords": "Cargando...",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+        "columnDefs": [
+            { "targets": [0, 1, 2, 3, 4, 5], "className": "text-center" },
+            { "targets": [0], "width": "15%" },
+            { "targets": [0, 4, 5, 6], "orderable": false },
+            {
+                "targets": [2],
+                render: function (v) {
+                    return Number(v).toFixed(2);
+                }
+            },
+            { "targets": [0, 1, 2], "className": "centered" }
+        ],
+        "drawCallback": function (settings) {
+            $('#tablaHistorial tbody tr').each(function () {
+                $(this).find('td').each(function (index) {
+                    if (index !== 2) {
+                        $(this).removeClass('centered');
+                        $(this).addClass('tbody-left');
+                    } else {
+                        $(this).removeClass('centered');
+                        $(this).addClass('left');
+                    }
+                });
+            });
+        },
+        "dom": '<"d-flex align-items-center gap-3 mb-3"lBf>rtip',
+        "buttons": [
+            {
+                extend: 'copy',
+                text: 'Copiar'
+            },
+            {
+                extend: 'excel',
+                text: 'Excel'
+            },
+            {
+                extend: 'pdf',
+                text: 'PDF'
+            },
+            {
+                extend: 'print',
+                text: 'Imprimir'
+            }
+        ]
+    });
+});
+ </script>
+ <script>
+    // Seleccionar el botón y agregar un evento
+    document.getElementById('backButton').addEventListener('click', function() {
+        // Redirige a la última página visitada
+        window.history.back();
+    });
+</script>
+
+</body>
+
+</html>

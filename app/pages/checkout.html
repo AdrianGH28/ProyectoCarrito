@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sephora</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="/"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="#">Más</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="/carrito">Shoping Cart</a></li>
+                                    <li><a href="/checkout">Check Out</a></li>
+                                    <li><a href="/">Shop</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <h4>Detalles de Factura</h4>
+                <form id="checkout-form">
+                    <p>* Solo se realizan envíos dentro de México</p>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Nombre<span>*</span></p>
+                                        <input type="text" id="nombre" name="nombre">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Apellido Paterno<span>*</span></p>
+                                        <input type="text" id="apellido" name="apellido">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Calle<span>*</span></p>
+                                <input type="text" id="ncalle" name="ncalle_direc" class="checkout__input__add">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Número Interior</p>
+                                <input type="text" id="numinte" name="numinte_direc">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Número Exterior<span>*</span></p>
+                                <input type="text" id="numexte" name="numexte_direc">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Colonia<span>*</span></p>
+                                <input type="text" id="ncol" name="ncol_direc" class="checkout__input__add">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Estado<span>*</span></p>
+                                <input type="text" id="estado" name="estado">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Ciudad<span>*</span></p>
+                                <input type="text" id="ciudad" name="ciudad">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Código Postal<span>*</span></p>
+                                <input type="text" id="cp" name="cp_dir">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4>Su Orden</h4>
+                                <div class="checkout__order__products">Productos <span>Total</span></div>
+                                <ul id="order-list">
+                                    <li>Vegetable’s Package <span>$75.99</span></li>
+                                    <li>Fresh Vegetable <span>$151.99</span></li>
+                                    <li>Organic Bananas <span>$53.99</span></li>
+                                </ul>
+                                <div class="checkout__order__subtotal">Total <span id="subtotalc">$750.99</span></div>
+                                <p>Los envíos se realizarán en un plazo de 6 a 12 días hábiles</p>
+                                <button type="submit" class="site-btn">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/checkout.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('checkout-form'); // Referencia al formulario
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evitar el envío inmediato
+
+                let errors = [];
+
+                // Obtener los valores de los campos
+                const nombre = document.getElementById('nombre').value;
+                const apellido = document.getElementById('apellido').value;
+                const ncalle = document.getElementById('ncalle').value;
+                const numinte = document.getElementById('numinte').value;
+                const numexte = document.getElementById('numexte').value;
+                const ciudad = document.getElementById('ciudad').value;
+                const estado = document.getElementById('estado').value;
+                const cp = document.getElementById('cp').value;
+
+                // Validar campos obligatorios
+                if (!nombre) errors.push('El nombre es obligatorio');
+                if (!apellido) errors.push('El apellido es obligatorio');
+                if (!ncalle) errors.push('La calle es obligatoria');
+                if (!numexte) errors.push('El número exterior es obligatorio');
+                if (!ciudad) errors.push('La ciudad es obligatoria');
+                if (!estado) errors.push('El estado es obligatorio');
+                if (!cp) errors.push('El código postal es obligatorio');
+                
+                // Validar que solo se ingresen letras en los campos de nombre, apellido, ciudad, y estado
+                const regex = /^[a-zA-Z\s]+$/; // Solo letras y espacios
+                if (!regex.test(nombre)) errors.push('El nombre solo puede contener letras');
+                if (!regex.test(apellido)) errors.push('El apellido solo puede contener letras');
+                if (!regex.test(ciudad)) errors.push('La ciudad solo puede contener letras');
+                if (!regex.test(estado)) errors.push('El estado solo puede contener letras');
+
+                // Validar el código postal (debe ser numérico y de 5 dígitos)
+                if (!/^\d{5}$/.test(cp)) errors.push('El código postal debe tener 5 dígitos');
+                
+                // Validar números (interior y exterior)
+                if (numinte && isNaN(numinte)) errors.push('El número interior debe ser un número');
+                if (isNaN(numexte)) errors.push('El número exterior debe ser un número');
+
+                // Si hay errores, mostrar alertas
+                if (errors.length > 0) {
+                    alert(errors.join('\n')); // Mostrar todos los errores
+                    return;
+                }
+
+                // Si todo está bien, procesar el formulario (puedes enviarlo a un servidor aquí)
+                alert('Datos completos y correctos');
+                console.log('Formulario enviado con éxito');
+            });
+        });
+    </script>
+</body>
+
+</html>

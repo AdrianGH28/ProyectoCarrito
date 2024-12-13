@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sephora</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!--AQUI COMIENZA EL HEADER (TODOS IGUALES)-->
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="/"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="#">Más</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="/carrito">Shoping Cart</a></li>
+                                    <li><a href="/checkout">Check Out</a></li>
+                                    <li><a href="/">Shop</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <div class="custom-container">
+        <div class="custom-row">
+            <!-- Agregar Proveedor -->
+            <div class="custom-col">
+                <div class="custom-section">
+                    <h4>Agregar Proveedor</h4>
+                    <form id="agregarmarcaform">
+                        <div class="custom-input">
+                            <input type="text" placeholder="Ingresa el nombre de la marca" id="marcaInput">
+                        </div>
+                        <button type="submit" id="submitbtnmarca" class="custom-button">
+                            <i class="fa fa-plus"></i> Agregar
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="custom-col">
+                <div class="custom-section">
+                    <h4>Agregar Subcategoría</h4>
+                    <form id="agregarsubcatform">
+                        <div class="custom-input">
+                            <input type="text" placeholder="Ingresa el nombre de la Subcategoría" id="subcatadd" required>
+                        </div>
+                        <div class="custom-input">
+                            <select id="catsel" required>
+                                
+                                <!-- Opciones dinámicas aquí -->
+                            </select>
+                        </div>
+                        <br>
+                        <br>
+                        <button type="submit" id="submitbtnsubcat" class="custom-button">
+                            <i class="fa fa-plus"></i> Agregar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Agregar Categoría -->
+            <div class="custom-col">
+                <div class="custom-section">
+                    <h4>Agregar Categoría</h4>
+                    <form id="agregarCategoriaForm">
+                        <div class="custom-input">
+                            <input type="text" placeholder="Ingresa el nombre de la Categoría" id="categoriaInput">
+                        </div>
+                        <button type="submit" id="submitbtncat" class="custom-button">
+                            <i class="fa fa-plus"></i> Agregar
+                        </button>
+                    </form>
+                </div>
+            </div>
+    
+            <!-- Agregar Subcategoría -->
+            
+        </div>
+    </div>
+    
+    <br>
+    <div class="container" id="centraresto">
+        <button id="backButton">Atrás</button>
+    </div>
+
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/add.js"></script>
+    <script>
+        // Seleccionar el botón y agregar un evento
+        document.getElementById('backButton').addEventListener('click', function () {
+            // Redirige a la última página visitada
+            window.history.back();
+        });
+    </script>
+
+
+
+</body>
+
+</html>

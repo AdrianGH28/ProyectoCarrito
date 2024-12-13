@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sephora</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .edit-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px);
+            padding-top: 20px;
+        }
+
+        .edit-box {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #000000;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background-color: #353535;
+            color: #ffffff;
+            border-color: #353535;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+
+        .button-container .btn {
+            width: 48%;
+        }
+
+        #logoutButton {
+        background-color: #000000;
+        color: #ffffff;
+        border: 2px solid #000000;
+    }
+
+    #logoutButton:hover {
+        background-color: #353535;
+        color: #ffffff;
+        border-color: #353535;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="/"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="#">Más</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="/carrito">Shoping Cart</a></li>
+                                    <li><a href="/checkout">Check Out</a></li>
+                                    <li><a href="/">Shop</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="edit-container">
+        <div class="edit-box">
+            <h4>Editar información de usuario</h4>
+            
+            <!-- Formulario de Correo -->
+            <form id="emailForm">
+                <div class="form-group">
+                    <label for="email">Correo:</label>
+                    <input type="email" id="email" name="email" placeholder="Ingresa el correo">
+                </div>
+                <button type="button" class="btn" onclick="submitEmailForm()">Aceptar cambios correo</button>
+            </form>
+
+            <!-- Formulario de Contraseña -->
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="password">Nueva Contraseña:</label>
+                    <input type="password" id="password" name="password" placeholder="Ingresa la nueva contraseña">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirma tu Contraseña:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirma la nueva contraseña">
+                </div>
+
+                <button type="button" class="btn" onclick="submitPasswordForm()">Aceptar cambios contraseña</button>
+            </form>
+        </div>
+
+        <div class="button-container">
+            <button type="button" class="btn" id="backButton">Back</button>
+            <button type="button" id="logoutButton" class="btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function submitEmailForm() {
+            const email = document.getElementById('email').value;
+
+            if (!email) {
+                alert('El correo no puede estar vacío');
+                return;
+            }
+
+            alert(`Correo actualizado: ${email}`);
+        }
+
+        function submitPasswordForm() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!password || !confirmPassword) {
+                alert('La contraseña no puede estar vacía');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+
+            alert('Contraseña actualizada');
+        }
+
+        function logout() {
+            alert('Logging out...');
+            document.cookie = 'jwt=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            window.location.href = '/';
+        }
+
+        document.getElementById('backButton')?.addEventListener('click', function () {
+            window.history.back();
+        });
+    </script>
+</body>
+
+</html>
