@@ -904,16 +904,8 @@ app.post("/api/direccion/insertar", async (req, res) => {
                     to: correo, // Usa el correo dinámico
                     subject: 'Confirmación de compra',
                     html: `
-                        <h1>Gracias por tu compra, ${nombrec} ${apellidoc}</h1>
+                        <h1>Gracias por tu compra en sephora, ${nombrec} ${apellidoc}</h1>
                         <p>Tu pago de $${pago} ha sido procesado exitosamente.</p>
-                        <p>Detalles de tu compra:</p>
-                        <ul>
-                            ${products
-                                .map(
-                                    (product) => `<li>${product.nom_prod} - Cantidad: ${product.cantidad} - Total: $${product.cantidad * product.precio_prod}</li>`
-                                )
-                                .join('')}
-                        </ul>
                         <p>¡Gracias por confiar en nosotros!</p>
                     `,
                 };
