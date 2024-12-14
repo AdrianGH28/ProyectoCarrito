@@ -281,7 +281,7 @@ app.get("/api/productosreporte", async (req, res) => {
 app.get("/api/ventasreporte", async (req, res) => {
     try {
         const query = `
-                select nombrec, apellidoc, fecha_pago, total_car, correo_user, concat (ncalle_direc," ", numexte_direc,", ", numinte_direc,", ", ncol_direc," ", alcaldia_dir," ", cp_dir," ", nciudad_direc," ") as direccion from dcheckout chec
+                select nombrec, apellidoc, fecha_pago, pago, correo_user, concat (ncalle_direc," ", numexte_direc,", ", numinte_direc,", ", ncol_direc," ", alcaldia_dir," ", cp_dir," ", nciudad_direc," ") as direccion from dcheckout chec
                 inner join ccarrito carr on chec.id_carr = carr.id_carr
                 inner join musuario usua on carr.id_user = usua.id_user
                 inner join ddireccion dirc on chec.id_direc = dirc.id_direc;
@@ -948,5 +948,55 @@ app.delete("/api/carrito/vaciar/:id_user", async (req, res) => {
     } catch (error) {
         console.error('Error al vaciar el carrito:', error);
         return res.status(500).send({ status: "Error", message: "Error al vaciar el carrito." });
+    }
+});
+
+
+app.get("/api/comprasreporte", async (req, res) => {
+    try {
+        const { id_user } = req.query;
+
+        // Verificar si el parámetro id_user está presente
+        if (!id_user) {
+            return res.status(400).send({
+                status: 'error',
+                message: 'El parámetro id_user es obligatorio.'
+            });
+        }
+
+        const query = `
+            SELECT 
+                nombrec, 
+                apellidoc, 
+                fecha_pago, 
+                pago, 
+                CONCAT(ncalle_direc, " ", numexte_direc, ", ", numinte_direc, ", ", ncol_direc, " ", alcaldia_dir, " ", cp_dir, " ", nciudad_direc, " ") AS direccion 
+            FROM dcheckout chec
+            INNER JOIN ccarrito carr ON chec.id_carr = carr.id_carr
+            INNER JOIN musuario usua ON carr.id_user = usua.id_user
+            INNER JOIN ddireccion dirc ON chec.id_direc = dirc.id_direc
+            WHERE usua.id_user = ?;
+        `;
+
+        const [rows] = await conexion.execute(query, [id_user]);
+
+        // Verificar si se encontraron resultados
+        if (rows.length === 0) {
+            return res.status(404).send({
+                status: 'error',
+                message: 'No se encontraron ventas para el usuario especificado.'
+            });
+        }
+
+        res.send({
+            status: 'ok',
+            data: rows
+        });
+    } catch (error) {
+        console.error('Error al obtener datos del reporte:', error.message);
+        res.status(500).send({
+            status: 'error',
+            message: 'Error al obtener datos del reporte'
+        });
     }
 });

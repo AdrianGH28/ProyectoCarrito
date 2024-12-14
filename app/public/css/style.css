@@ -2883,7 +2883,9 @@ h4 {
 	}
 }
 
-
+.fa fa-user{
+	cursor:pointer;
+}
 
 .product__item__pic{
 	background-size: contain;
