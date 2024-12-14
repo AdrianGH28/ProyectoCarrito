@@ -16,6 +16,24 @@ function obtenerUserId() {
         });
 }
 
+function obtenerUserInfo() {
+    return fetch('/api/usuario')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok' && data.correo_user) {
+                return data.correo_user;
+            } else {
+                console.error('Error al obtener la información del usuario:', data.message);
+                return null;
+            }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud para obtener la información del usuario:', error);
+            return null;
+        });
+}
+
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     const orderList = document.getElementById('order-list');
@@ -29,7 +47,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const userId = await obtenerUserId(); // Este debería ser dinámico dependiendo del usuario logueado
-
+    const userEmail = await obtenerUserInfo();
+    console.log(userEmail);
     // Obtener el carrito del usuario
     fetch(`/api/carrito/${userId}`)
         .then(response => response.json())
@@ -101,7 +120,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         fecha_pago: new Date().toISOString().split('T')[0],  // Fecha actual en formato YYYY-MM-DD
                         nombrec: nombre,
                         apellidoc: apellido,
-                        pago: subtotal.toFixed(2) // Total del carrito
+                        pago: subtotal.toFixed(2), // Total del carrito
+                        correo: userEmail,
                     };
 
                     console.log('Datos del checkout:', checkoutData);

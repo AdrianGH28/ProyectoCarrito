@@ -22,8 +22,8 @@ const app = express();
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD
+        user: 'sephorapagos@gmail.com',
+        pass: 'rinroxhojfmcjprx'
     }
 });
 app.use(express.json());
@@ -567,10 +567,10 @@ app.get("/api/productos/filtrar-nombre", async (req, res) => {
         return res.status(500).send({ status: "Error", message: "Error interno del servidor." });
     }
 });
-app.get('/api/usuario', (req, res) => {
+app.get('/api/usuario', async (req, res) => {
     const token = req.cookies.jwt;
 
-    console.log('Token recibido:', token);  // Verifica el token recibido
+    console.log('Token recibido:', token);
 
     if (!token) {
         return res.status(401).json({ status: 'error', message: 'No autorizado' });
@@ -578,15 +578,42 @@ app.get('/api/usuario', (req, res) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);  // Verificación del token
-        console.log('Token decodificado:', decoded);  // Verifica el contenido del token
+        console.log('Token decodificado:', decoded);
 
         const id_user = decoded.id_user;  // Extrae el ID del usuario
-        res.json({ status: 'ok', id_user });
+
+        // Llamar a la función para obtener el correo por id_user
+        const userEmail = await obtenerCorreoPorId(id_user);  // Uso de await para obtener el correo
+
+        if (userEmail) {
+            res.json({ status: 'ok', id_user, correo_user: userEmail });
+        } else {
+            res.status(404).json({ status: 'error', message: 'Usuario no encontrado' });
+        }
     } catch (error) {
-        console.error('Error al verificar el token:', error);  // Verifica cualquier error
+        console.error('Error al verificar el token:', error);
         res.status(403).json({ status: 'error', message: 'Token inválido' });
     }
 });
+
+
+const obtenerCorreoPorId = async (id_user) => {
+    try {
+        // Consulta SQL para obtener el correo del usuario por su ID
+        const query = 'SELECT correo_user FROM musuario WHERE id_user = ?';
+        const [rows] = await conexion.execute(query, [id_user]);
+
+        // Verifica si se encontró el usuario
+        if (rows.length > 0) {
+            return rows[0].correo_user;  // Devuelve el correo del usuario
+        } else {
+            return null;  // Si no se encuentra el usuario
+        }
+    } catch (error) {
+        console.error('Error al obtener el correo del usuario:', error);
+        throw error;  // Lanza el error para ser capturado por el manejador de errores
+    }
+};
 
 app.post("/api/carrito/agregar", async (req, res) => {
     const { id_user, id_prod } = req.body;
@@ -801,7 +828,7 @@ app.delete("/api/carrito/eliminar/:id_user/:id_prod", async (req, res) => {
 app.post("/api/direccion/insertar", async (req, res) => {
     const { datosCheckout, datosDireccion } = req.body;
     const { numinte, numexte, colonia, calle, ciudad, estado, cp } = datosDireccion;
-    const { id_carr, fecha_pago, nombrec, apellidoc, pago } = datosCheckout;
+    const { id_carr, fecha_pago, nombrec, apellidoc, pago, correo } = datosCheckout;
     
     try {
         // Primero, obtener los productos en el carrito
@@ -813,6 +840,8 @@ app.post("/api/direccion/insertar", async (req, res) => {
             const queryProductDetails = 'SELECT * FROM cproductos WHERE id_prod = ?';
             const [productDetails] = await conexion.execute(queryProductDetails, [product.id_prod]);
 
+            console.log('Productos:', products);
+            
             if (productDetails.length > 0) {
                 const productInfo = productDetails[0];
 
@@ -854,7 +883,7 @@ app.post("/api/direccion/insertar", async (req, res) => {
         ]);
 
         if (checkoutResult.affectedRows > 0) {
-            // Si el pago fue procesado correctamente, actualizamos las cantidades de productos
+            // Si el pago fue procesado correctamente, actualizamos las cantidades de productos y enviamos al correo
             for (const product of products) {
                 const queryProductDetails = 'SELECT * FROM cproductos WHERE id_prod = ?';
                 const [productDetails] = await conexion.execute(queryProductDetails, [product.id_prod]);
@@ -868,11 +897,41 @@ app.post("/api/direccion/insertar", async (req, res) => {
                     await conexion.execute(updateQuery, [newQuantity, product.id_prod]);
                 }
             }
+            if (checkoutResult.affectedRows > 0) {
+                // Configuración para el correo
+                const emailConfig = {
+                    from: 'sephorapagos@gmail.com',
+                    to: correo, // Usa el correo dinámico
+                    subject: 'Confirmación de compra',
+                    html: `
+                        <h1>Gracias por tu compra, ${nombrec} ${apellidoc}</h1>
+                        <p>Tu pago de $${pago} ha sido procesado exitosamente.</p>
+                        <p>Detalles de tu compra:</p>
+                        <ul>
+                            ${products
+                                .map(
+                                    (product) => `<li>${product.nom_prod} - Cantidad: ${product.cantidad} - Total: $${product.cantidad * product.precio_prod}</li>`
+                                )
+                                .join('')}
+                        </ul>
+                        <p>¡Gracias por confiar en nosotros!</p>
+                    `,
+                };
+    
+                // Lógica para enviar el correo (usa nodemailer o cualquier librería que utilices)
+                transporter.sendMail(emailConfig, (error, info) => {
+                    if (error) {
+                        console.error('Error al enviar el correo:', error);
+                    } else {
+                        console.log('Correo enviado:', info.response);
+                    }
+                });
+            }
 
             // Todo está correcto, responder con éxito
             return res.send({
                 status: 'ok',
-                message: 'Pago procesado exitosamente y cantidades actualizadas.',
+                message: 'Pago procesado exitosamente, cantidades actualizadas y correo enviado.',
             });
         } else {
             return res.status(500).send({
