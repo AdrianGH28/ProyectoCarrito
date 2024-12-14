@@ -237,10 +237,10 @@ if (!userId || isNaN(userId)) {
 
 
 //FILTRA POR MARCA 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     const productContainer = document.querySelector('.product__list');
-    const userId = obtenerUserId(); // Función para obtener el ID dinámico del usuario
+    const userId = await obtenerUserId(); // Función para obtener el ID dinámico del usuario
     console.log("ID de usuario logueado:", userId);
 
     // Escuchar cambios en los radio buttons de marca
@@ -391,7 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //FILTRAR POR TIPO
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     
     const categoriesList = document.getElementById("categories-list");
@@ -399,7 +399,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const productContainer = document.querySelector(".product__list");
 
     // Suponemos que el ID del usuario está en una variable llamada userId
-    const userId = obtenerUserId(); // Esta función debe obtener el ID del usuario de manera dinámica
+    const userId = await obtenerUserId(); // Esta función debe obtener el ID del usuario de manera dinámica
     console.log(userId);
 
     // Escuchar clics en los elementos del menú
@@ -550,13 +550,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //FILTRAR POR TEXTO
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const searchForm = document.getElementById("search-form");
     const searchInput = document.getElementById("search-input");
     const productContainer = document.querySelector(".product__list");
 
     // Suponemos que el ID del usuario está en una variable llamada userId
-    const userId = obtenerUserId(); // Esta función debe obtener el ID del usuario de manera dinámica
+    const userId = await obtenerUserId(); // Esta función debe obtener el ID del usuario de manera dinámica
 
     // Escuchar el evento submit del formulario
     searchForm.addEventListener("submit", (event) => {
