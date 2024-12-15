@@ -241,7 +241,7 @@ app.post('/api/agregar-producto', async (req, res) => {
 
 
 
-app.get("/api/subtipos-producto", authorization.proteccion, async (req, res) => {
+app.get("/api/subtipos-producto", async (req, res) => {
     try {
         // Realizar la consulta a la base de datos para obtener todos los tipos de productos
         const [rows] = await conexion.execute('SELECT id_subtipop, nom_subtipop, id_tipoprod FROM csubtipop');
@@ -257,6 +257,64 @@ app.get("/api/subtipos-producto", authorization.proteccion, async (req, res) => 
         // Capturar errores y mostrarlos en la consola
         console.error('Error al obtener los tipos de productos:', error);
         return res.status(500).send({ status: "Error", message: "Error al obtener los subtipos de productos" });
+    }
+});
+
+
+//ELIMINAR PROD
+// Ruta para obtener todos los subtipos
+app.get("/api/getsubtipos-producto", async (req, res) => {
+    try {
+        // Realizar la consulta a la base de datos para obtener todos los subtipos
+        const [rows] = await conexion.execute('SELECT id_subtipop, nom_subtipop FROM csubtipop');
+        
+        if (rows.length === 0) {
+            return res.status(404).send({ status: "Error", message: "No se encontraron los subtipos de productos" });
+        }
+        
+        res.send({ status: "ok", data: rows });
+    } catch (error) {
+        console.error('Error al obtener los subtipos de productos:', error);
+        return res.status(500).send({ status: "Error", message: "Error al obtener los subtipos de productos" });
+    }
+});
+
+
+
+// Ruta para obtener productos por subtipo
+app.get("/api/getproductos/:subtipoId", async (req, res) => {
+    const subtipoId = req.params.subtipoId;
+
+    try {
+        // Consultar los productos relacionados con el subtipo seleccionado
+        const [rows] = await conexion.execute('SELECT id_prod, nom_prod FROM cproductos WHERE id_subtipop = ?', [subtipoId]);
+        
+        if (rows.length === 0) {
+            return res.status(404).send({ status: "Error", message: "No se encontraron productos para este subtipo" });
+        }
+        
+        res.send({ status: "ok", data: rows });
+    } catch (error) {
+        console.error('Error al obtener los productos:', error);
+        return res.status(500).send({ status: "Error", message: "Error al obtener los productos" });
+    }
+});
+
+app.delete("/api/eliminarProducto/:productoId", async (req, res) => {
+    const productoId = req.params.productoId;
+
+    try {
+        // Realizar la eliminación del producto
+        const [result] = await conexion.execute('DELETE FROM cproductos WHERE id_prod = ?', [productoId]);
+        
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ status: "Error", message: "Producto no encontrado" });
+        }
+
+        res.send({ success: true, message: 'Producto eliminado correctamente.' });
+    } catch (error) {
+        console.error('Error al eliminar el producto:', error);
+        return res.status(500).send({ success: false, message: "Error al eliminar el producto" });
     }
 });
 

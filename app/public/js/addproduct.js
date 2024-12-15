@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch('/api/marcas');
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        
+
         const result = await response.json();
         console.log('Respuesta de la API:', result);
 
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch('/api/tipos-productos');
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        
+
         const result = await response.json();
         console.log('Respuesta de la API:', result);
 
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch('/api/subtipos-productos');
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        
+
         const result = await response.json();
         console.log('Respuesta de la API:', result);
 
@@ -156,3 +156,114 @@ document.getElementById('agregarprodform').addEventListener('submit', async (eve
         alert('Hubo un error al procesar tu solicitud');
     }
 });
+
+
+
+//-----------------------------
+//ELIMINAR PRODUCTO
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('DOM completamente cargado.');
+
+    const selectSubtipo = document.getElementById('subtipop');
+    const selectProducto = document.getElementById('producto');
+    const btnEliminar = document.getElementById('submitbtndeleteprod');
+
+    // Aseguramos que los selects sean visibles
+    selectSubtipo.style.display = 'block';
+    selectProducto.style.display = 'block';
+
+    try {
+        // Cargar subtipos desde la API
+        const responseSubtipos = await fetch('/api/getsubtipos-producto');
+        if (!responseSubtipos.ok) {
+            console.error(`Error HTTP: ${responseSubtipos.status}`);
+            throw new Error(`Error al obtener subtipos: ${responseSubtipos.statusText}`);
+        }
+
+
+        const resultSubtipos = await responseSubtipos.json();
+        console.log('Subtipos:', resultSubtipos);
+
+        if (resultSubtipos.status === 'ok') {
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un subtipo';
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            selectSubtipo.appendChild(defaultOption);
+
+            resultSubtipos.data.forEach(subtipo => {
+                const option = document.createElement('option');
+                option.value = subtipo.id_subtipop;
+                option.textContent = subtipo.nom_subtipop;
+                selectSubtipo.appendChild(option);
+            });
+        } else {
+            console.error('Error en los datos de subtipos:', resultSubtipos.message);
+        }
+
+        
+        // Evento: Cargar productos según subtipo seleccionado
+        selectSubtipo.addEventListener('change', async () => {
+            const subtipoId = selectSubtipo.value;
+
+            if (subtipoId) {
+                const responseProductos = await fetch(`/api/getproductos/${subtipoId}`);
+                if (!responseProductos.ok) throw new Error(`Error HTTP: ${responseProductos.status}`);
+
+                const resultProductos = await responseProductos.json();
+                console.log('Productos:', resultProductos);
+
+                // Actualizamos el select de productos
+                selectProducto.innerHTML = ''; // Limpiar opciones previas
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Seleccione un producto';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                selectProducto.appendChild(defaultOption);
+
+                if (resultProductos.status === 'ok') {
+                    resultProductos.data.forEach(producto => {
+                        const option = document.createElement('option');
+                        option.value = producto.id_prod;
+                        option.textContent = producto.nom_prod;
+                        selectProducto.appendChild(option);
+                    });
+                } else {
+                    console.error('Error en los datos de productos:', resultProductos.message);
+                }
+            } else {
+                // Si no hay subtipo seleccionado, limpiar el select de productos
+                selectProducto.innerHTML = '<option value="">Seleccione un producto</option>';
+            }
+        });
+
+
+        // Evento: Eliminar producto seleccionado
+        btnEliminar.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const productoId = selectProducto.value;
+            if (productoId) {
+                const responseEliminar = await fetch(`/api/eliminarProducto/${productoId}`, {
+                    method: 'DELETE',
+                });
+
+                const resultEliminar = await responseEliminar.json();
+                if (resultEliminar.success) {
+                    alert('Producto eliminado correctamente.');
+                    selectProducto.innerHTML = '<option value="">Seleccione un producto</option>';
+                    selectSubtipo.value = '';
+                } else {
+                    alert('Hubo un error al eliminar el producto.');
+                }
+            } else {
+                alert('Por favor, seleccione un producto.');
+            }
+        });
+    } catch (error) {
+        console.error('Error general en la carga de datos:', error);
+    }
+});
+
